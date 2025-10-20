@@ -27,7 +27,8 @@ interface MenuItem {
 
       <!-- Menu Items -->
       <nav class="flex-1 p-3 space-y-1">
-        <div *ngFor="let item of menuItems" 
+        <div *ngFor="let item of menuItems" (click)="setActive(item)"
+              [class.active]="item.active"
              [class]="getMenuItemClasses(item)"
              class="group cursor-pointer">
           <span [innerHTML]="item.icon" class="flex-shrink-0"></span>
@@ -75,12 +76,12 @@ export class SidebarComponent {
   toggleSidebar = output<void>();
 
   menuItems: MenuItem[] = [
-    { icon: '<img src="menu-icon.png" />', label: 'Lorem' },
-    { icon: '<img src="menu-2.png" />', label: 'Lorem' },
-    { icon: '<img src="menu-3.png" />', label: 'Lorem' },
-    { icon: '<img src="menu-4.png" />', label: 'Lorem' },
-    { icon: '<img src="menu-4.png" />', label: 'Lorem' },
-    { icon: '<img src="menu-6.png" />', label: 'Lorem' }
+    { icon: '<img src="menu-icon.png" />', label: 'Lorem', active: false },
+    { icon: '<img src="menu-2.png" />', label: 'Lorem', active: false},
+    { icon: '<img src="menu-3.png" />', label: 'Lorem', active: false},
+    { icon: '<img src="menu-4.png" />', label: 'Lorem', active: false},
+    { icon: '<img src="menu-4.png" />', label: 'Lorem', active: false},
+    { icon: '<img src="menu-6.png" />', label: 'Lorem', active: false}
 
   ];
 
@@ -109,6 +110,11 @@ export class SidebarComponent {
     return `${baseClasses} ${activeClasses}`;
   }
 
+  setActive(selectedItem: any) {
+  this.menuItems.forEach(item => item.active = false);
+  selectedItem.active = true;
+  }
+  
   onToggle() {
     this.toggleSidebar.emit();
   }
