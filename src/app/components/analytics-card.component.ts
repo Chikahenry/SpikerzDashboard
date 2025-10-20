@@ -57,25 +57,20 @@ interface Connection {
                [style.z-index]="2"
                class="transform -translate-x-1/2 -translate-y-1/2">
             
-            <div class="relative cursor-pointer transition-transform hover:scale-110"
-                 (click)="selectNode(node)">
+            <div class="relative w-16 h-16 rounded-full cursor-pointer transition-transform hover:scale-110"
+                [class]="node.type === 'start' ? 'bg-[rgba(244, 172, 172, 1)]' : 'bg-[]'"
+                 (mouseenter)="selectNode(node)" (mouseleave)="closePopover()">
               <!-- Critical Badge -->
               <div *ngIf="node.critical" 
-                   class="absolute -top-2 -right-2 w-6 h-6 bg-red-500 rounded-full flex items-center justify-center text-white text-xs font-bold z-10 shadow-lg">
-                {{ node.criticalCount }}
+                   class="absolute -top-1 -right-1 w-6 h-6 bg-red-500 rounded-full flex items-center justify-center text-white text-xs font-bold z-10 shadow-lg">
+                <img src="red-icon.png" />
               </div>
               
               <!-- Node Icon -->
-              <div [class]="getNodeClasses(node)">
-                <svg *ngIf="node.type === 'start'" class="w-6 h-6 text-purple-600" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                </svg>
-                <svg *ngIf="node.type === 'server'" class="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M20 13H4c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1h16c.55 0 1-.45 1-1v-6c0-.55-.45-1-1-1zM7 19c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zM20 3H4c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1h16c.55 0 1-.45 1-1V4c0-.55-.45-1-1-1zM7 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/>
-                </svg>
-                <svg *ngIf="node.type === 'endpoint'" class="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M20 13H4c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1h16c.55 0 1-.45 1-1v-6c0-.55-.45-1-1-1zM7 19c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/>
-                </svg>
+              <div >
+                <img  [src]="node.type == 'start' ? 'start-icon.png' : ''"/>
+                <img  [src]="node.type != 'start' ? 'Icon.png' : ''"/>
+                
               </div>
               
               <!-- Node Label -->
@@ -103,11 +98,7 @@ interface Connection {
                   <div class="text-xs text-gray-500">{{ selectedNode()?.sublabel }}</div>
                 </div>
               </div>
-              <button (click)="closePopover()" class="text-gray-400 hover:text-gray-600">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
+              
             </div>
             
             <div *ngIf="selectedNode()?.details" class="space-y-2 border-t pt-3">
@@ -127,15 +118,21 @@ interface Connection {
         <!-- Status Indicators -->
         <div class="flex items-center gap-6 mb-8">
           <div class="flex items-center gap-2">
-            <div class="w-6 h-6 bg-red-500 rounded-full flex items-center justify-center text-white text-xs font-bold">C</div>
+            <div class="w-6 h-6 bg-red-500 rounded-full flex items-center justify-center text-white text-xs font-bold">
+              <img src="red-icon.png" />
+            </div>
             <span class="text-sm text-gray-600">Lorem</span>
           </div>
           <div class="flex items-center gap-2">
-            <div class="w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center text-white text-xs font-bold">O</div>
+            <div class="w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center text-white text-xs font-bold">
+              <img src="orange-icon.png" />
+            </div>
             <span class="text-sm text-gray-600">Lorem</span>
           </div>
           <div class="flex items-center gap-2">
-            <div class="w-6 h-6 bg-emerald-500 rounded-full flex items-center justify-center text-white text-xs font-bold">C</div>
+            <div class="w-6 h-6 bg-emerald-500 rounded-full flex items-center justify-center text-white text-xs font-bold">
+              <img src="green-icon.png" />
+            </div>
             <span class="text-sm text-gray-600">Lorem</span>
           </div>
         </div>
@@ -165,7 +162,7 @@ interface Connection {
                 </div>
               </div>
               <div>
-                <span class="inline-block px-3 py-1 rounded text-xs font-medium bg-red-100 text-red-700">
+                <span class="inline-block px-3 ml-3 py-1 rounded text-xs font-medium bg-red-100 text-red-700">
                   {{ asset.risk }}
                 </span>
               </div>
@@ -254,21 +251,42 @@ export class AnalyticsCardComponent {
       type: 'start',
       label: 'Loremipsumm',
       x: 80,
-      y: 150
+      y: 150,
+       details: {
+        title: 'Loremipsum',
+        items: [
+          { label: 'Lorem', value: 'Lorem "Ipsum"' },
+          { label: 'Loremipsum', value: 'Lorem 1234,5678', highlight: true }
+        ]
+      }
     },
     {
       id: 'server1',
       type: 'server',
       label: 'Loremipsu',
       x: 240,
-      y: 150
+      y: 150,
+       details: {
+        title: 'Loremipsu',
+        items: [
+          { label: 'Lorem', value: 'Lorem "Ipsum"' },
+          { label: 'Loremipsum', value: 'Lorem 1234,5678', highlight: true }
+        ]
+      }
     },
     {
       id: 'server2',
       type: 'server',
       label: 'Loremipsu',
       x: 400,
-      y: 150
+      y: 150,
+       details: {
+        title: 'Loremipsu',
+        items: [
+          { label: 'Lorem', value: 'Lorem "Ipsum"' },
+          { label: 'Loremipsum', value: 'Lorem 1234,5678', highlight: true }
+        ]
+      }
     },
     {
       id: 'endpoint1',
@@ -278,7 +296,6 @@ export class AnalyticsCardComponent {
       x: 600,
       y: 80,
       critical: true,
-      criticalCount: 10,
       details: {
         title: 'Loremipsumdolorsit',
         items: [
@@ -295,7 +312,6 @@ export class AnalyticsCardComponent {
       x: 600,
       y: 220,
       critical: true,
-      criticalCount: 10,
       details: {
         title: 'Loremipsumdolorsit002',
         items: [
@@ -318,15 +334,6 @@ export class AnalyticsCardComponent {
     { name: 'Loremipsumdolorsit002', ip: '192.168.1.2', risk: 'Critical' }
   ]);
 
-  getNodeClasses(node: WorkflowNode): string {
-    const baseClasses = 'rounded-lg p-3 shadow-lg border-2 transition-all duration-200';
-    
-    if (node.type === 'start') {
-      return `${baseClasses} bg-purple-100 border-purple-300 hover:shadow-xl`;
-    }
-    return `${baseClasses} bg-blue-100 border-blue-300 hover:shadow-xl`;
-  }
-
   getConnectionPath(conn: Connection): string {
     const fromNode = this.workflowNodes().find(n => n.id === conn.from);
     const toNode = this.workflowNodes().find(n => n.id === conn.to);
@@ -346,9 +353,8 @@ export class AnalyticsCardComponent {
   selectNode(node: WorkflowNode) {
     this.selectedNode.set(node);
     
-    // Position popover to the right of the node
-    const popoverX = node.x + 120;
-    const popoverY = node.y - 50;
+    const popoverX = node.type == 'endpoint' ? node.x - 400 : node.x + 100;
+    const popoverY = node.type == 'endpoint' ? node.y - 100 : node.y - 70;
     
     this.popoverPosition.set({ x: popoverX, y: popoverY });
   }

@@ -13,7 +13,8 @@ interface AccordionItem {
   standalone: true,
   imports: [CommonModule],
   template: `
-    <div class="bg-white rounded-lg shadow-sm border border-gray-200 h-full flex flex-col">
+    <div class="h-[calc(100vh-2rem)] overflow-y-auto 
+        bg-white rounded-lg shadow-sm border border-gray-200 h-full flex flex-col">
       <div class="p-6 overflow-y-auto flex-1 custom-scrollbar">
         <!-- Description Section -->
         <div class="mb-6">
@@ -40,20 +41,20 @@ interface AccordionItem {
 
         <!-- Data List -->
         <div class="space-y-3 mb-6">
-          <div class="flex justify-between text-sm">
-            <span class="text-gray-700 font-medium">Lorem Ipsum Dolor</span>
+          <div class="flex justify-start text-sm">
+            <span class="text-gray-700 mr-10 font-medium">Lorem Ipsum Dolor</span>
             <span class="text-gray-600">10/19/2017</span>
           </div>
-          <div class="flex justify-between text-sm">
-            <span class="text-gray-700 font-medium">Lorem Ipsum Dolor</span>
+          <div class="flex justify-start text-sm">
+            <span class="text-gray-700 mr-10 font-medium">Lorem Ipsum Dolor</span>
             <span class="text-gray-600">Ut</span>
           </div>
-          <div class="flex justify-between text-sm">
-            <span class="text-gray-700 font-medium">Lorem Ipsum Dolor</span>
+          <div class="flex justify-start text-sm">
+            <span class="text-gray-700 mr-10 font-medium">Lorem Ipsum Dolor</span>
             <span class="text-gray-600">Eros</span>
           </div>
-          <div class="flex justify-between text-sm">
-            <span class="text-gray-700 font-medium">Lorem Ipsum Dolor</span>
+          <div class="flex justify-start text-sm">
+            <span class="text-gray-700 mr-10 font-medium">Lorem Ipsum Dolor</span>
             <span class="text-emerald-600 flex items-center gap-1">
               <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
@@ -61,16 +62,16 @@ interface AccordionItem {
               Yes
             </span>
           </div>
-          <div class="flex justify-between text-sm">
-            <span class="text-gray-700 font-medium">Lorem Ipsum Dolor</span>
+          <div class="flex justify-start text-sm">
+            <span class="text-gray-700 mr-10 font-medium">Lorem Ipsum Dolor</span>
             <span class="text-gray-600">Sit</span>
           </div>
-          <div class="flex justify-between text-sm">
-            <span class="text-gray-700 font-medium">Lorem Ipsum Dolor</span>
+          <div class="flex justify-start text-sm">
+            <span class="text-gray-700 mr-10 font-medium">Lorem Ipsum Dolor</span>
             <span class="text-gray-600">Lorem Ipsum Dolor</span>
           </div>
-          <div class="flex justify-between text-sm">
-            <span class="text-gray-700 font-medium">Lorem Ipsum Dolor</span>
+          <div class="flex justify-start text-sm">
+            <span class="text-gray-700 mr-10 font-medium">Lorem Ipsum Dolor</span>
             <span class="text-gray-600">Lorem Ipsum Dolor</span>
           </div>
         </div>
@@ -81,45 +82,52 @@ interface AccordionItem {
         <!-- Accordion Items -->
         <div class="space-y-3">
           <div *ngFor="let item of accordionItems()" class="border border-gray-200 rounded-lg overflow-hidden">
-            <button
+            <div 
               (click)="toggleAccordion(item.id)"
-              class="w-full px-4 py-3 flex items-center justify-between bg-gray-50 hover:bg-gray-100 transition-colors">
-              <span class="font-medium text-gray-700">{{ item.title }}</span>
-              <svg
-                class="w-5 h-5 text-gray-500 transition-transform duration-200"
-                [class.rotate-180]="expandedAccordion() === item.id"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-
-            <div
-              class="transition-all duration-300 ease-in-out overflow-hidden"
-              [style.max-height]="expandedAccordion() === item.id ? '600px' : '0'">
-              <div class="p-4 bg-white space-y-4">
-                <div *ngIf="item.serverInfo" class="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
+              class="w-full px-4 py-3 flex items-center justify-between">
+              <div class="font-medium text-gray-700 cursor-pointer"><span>{{ item.title }}</span>
+               <div *ngIf="item.serverInfo" class="flex items-start  p-3 h-20 bg-gray-50 rounded-lg">
                   <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
                     <svg class="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M20 13H4c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1h16c.55 0 1-.45 1-1v-6c0-.55-.45-1-1-1zM7 19c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zM20 3H4c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1h16c.55 0 1-.45 1-1V4c0-.55-.45-1-1-1zM7 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/>
                     </svg>
                   </div>
-                  <div class="flex-1">
+                  <div class="flex-1 items-start min-w-0 ml-5 mr-32">
                     <div class="font-medium text-gray-700">{{ item.serverInfo.label }}</div>
                     <div class="text-xs text-gray-500">{{ item.serverInfo.sublabel }}</div>
                   </div>
-                  <div class="text-sm text-gray-600">{{ item.serverInfo.description }}</div>
+                  <div class="text-sm text-gray-400 mx-1 flex items-center">
+                    <div class="border-2 border-gray-200 h-14 mx-2"></div>
+                    <div>{{ item.serverInfo.description }}</div>
+                  </div>
                 </div>
-                <p class="text-sm text-gray-600 leading-relaxed">{{ item.content }}</p>
+                <div
+                  class="transition-all duration-300 ease-in-out overflow-hidden"
+                  [style.max-height]="expandedAccordion() === item.id ? '600px' : '0'">
+                  <div class="p-4 bg-white space-y-4">
+                    
+                    <p class="text-sm text-gray-600 leading-relaxed">{{ item.content }}</p>
+                  </div>
+                </div>
+            
               </div>
             </div>
+
           </div>
         </div>
       </div>
     </div>
   `,
   styles: [`
+   .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .scrollbar-hide {
+    -ms-overflow-style: none; 
+    scrollbar-width: none;  
+  }
+  
     .custom-scrollbar::-webkit-scrollbar {
       width: 6px;
     }
