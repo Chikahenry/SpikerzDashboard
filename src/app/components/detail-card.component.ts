@@ -13,7 +13,7 @@ interface AccordionItem {
   standalone: true,
   imports: [CommonModule],
   template: `
-    <div class="h-[calc(100vh-2rem)] overflow-y-auto 
+    <div class="h-[calc(100vh-4rem)] overflow-y-auto scrollbar-hide
         bg-white rounded-lg shadow-sm border border-gray-200 h-full flex flex-col">
       <div class="p-6 overflow-y-auto flex-1 custom-scrollbar">
         <!-- Description Section -->
@@ -92,7 +92,7 @@ interface AccordionItem {
                       <path d="M20 13H4c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1h16c.55 0 1-.45 1-1v-6c0-.55-.45-1-1-1zM7 19c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zM20 3H4c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1h16c.55 0 1-.45 1-1V4c0-.55-.45-1-1-1zM7 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/>
                     </svg>
                   </div>
-                  <div class="flex-1 items-start min-w-0 ml-5 mr-32">
+                  <div class="flex-1 items-start min-w-0 ml-5 mr-28">
                     <div class="font-medium text-gray-700">{{ item.serverInfo.label }}</div>
                     <div class="text-xs text-gray-500">{{ item.serverInfo.sublabel }}</div>
                   </div>

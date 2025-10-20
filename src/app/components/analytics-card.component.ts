@@ -187,7 +187,7 @@ interface Connection {
           <div class="bg-gray-50 rounded-lg p-6">
             <h4 class="text-gray-700 font-semibold mb-6">Contextual Risk</h4>
             
-            <div class="flex items-center justify-between">
+            <div class="flex items-center justify-start gap-8">
               <div class="space-y-3 flex-1">
                 <div class="flex items-center gap-3">
                   <div class="w-3 h-3 bg-red-500 rounded-full"></div>
@@ -210,7 +210,7 @@ interface Connection {
               <div class="relative w-32 h-32">
                 <svg class="transform -rotate-90" viewBox="0 0 120 120">
                   <circle cx="60" cy="60" r="50" fill="none" stroke="#f3f4f6" stroke-width="12"/>
-                  <circle cx="60" cy="60" r="50" fill="none" stroke="#ef4444" stroke-width="12"
+                  <circle cx="60" cy="60" r="50" fill="none" stroke="#ef4444" stroke-width="8"
                           stroke-dasharray="314" stroke-dashoffset="0"
                           class="transition-all duration-500"/>
                 </svg>
