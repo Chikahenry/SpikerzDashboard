@@ -1,7 +1,7 @@
 import { Component, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DetailCardComponent } from './detail-card.component';
-import { AnalyticsCardComponent } from './analytics-card.component';
+import { DetailCardComponent } from '../detail-card/detail-card';
+import { AnalyticsCardComponent } from '../analytics-card/analytics-card';
 
 @Component({
   selector: 'app-dashboard',
