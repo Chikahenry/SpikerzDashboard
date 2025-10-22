@@ -13,7 +13,7 @@ interface AccordionItem {
   standalone: true,
   imports: [CommonModule],
   template: `
-    <div class="h-[calc(100vh-7rem)] overflow-y-auto
+    <div class="h-screen max-h-[calc(100vh-7rem)] max-h-[calc(100dvh-7rem)] overflow-y-auto
         bg-white rounded-lg shadow-sm border border-gray-200 h-full flex flex-col">
       <div class="p-6 overflow-y-auto flex-1 custom-scrollbar">
         <!-- Description Section -->
@@ -127,7 +127,15 @@ interface AccordionItem {
     -ms-overflow-style: none; 
     scrollbar-width: none;  
   }
-  
+  :host {
+      --header-height: 6rem;
+      --available-height: calc(100vh - var(--header-height));
+    }
+
+    .container {
+      height: var(--available-height);
+      overflow-y: auto;
+    }
     .custom-scrollbar::-webkit-scrollbar {
       width: 6px;
     }
