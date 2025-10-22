@@ -1,4 +1,4 @@
-import { Component, signal, effect, computed  } from '@angular/core';
+import { Component, HostListener, signal, effect, computed  } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 interface WorkflowNode {
@@ -39,21 +39,6 @@ interface Connection {
         
         <div class="relative bg-gray-50 rounded-lg p-8 mb-8 min-h-[300px]">
           <!-- SVG for connections -->
-          <!-- <svg class="absolute inset-0 w-full h-full pointer-events-none" style="z-index: 1;">
-            <defs>
-              <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto">
-                <polygon points="0 0, 10 3, 0 6" fill="#cbd5e0" />
-              </marker>
-            </defs>
-            <g *ngFor="let conn of connections()">
-              <path 
-                [attr.d]="getConnectionPath(conn)"
-                stroke="#cbd5e0" 
-                stroke-width="2" 
-                fill="none"
-                marker-end="url(#arrowhead)" />
-            </g>
-          </svg> -->
           <svg class="absolute inset-0 w-full h-full pointer-events-none" 
               viewBox="0 0 100 100" 
               preserveAspectRatio="none"
@@ -75,12 +60,6 @@ interface Connection {
           </svg>
 
           <!-- Workflow Nodes -->
-          <!-- <div *ngFor="let node of workflowNodes()" 
-               [style.position]="'absolute'"
-               [style.left.px]="node.x"
-               [style.top.px]="node.y"
-               [style.z-index]="2"
-               class="transform -translate-x-1/2 -translate-y-1/2"> -->
             <div *ngFor="let node of workflowNodes()" 
               [style.position]="'absolute'"
               [style.left.%]="node.x"
@@ -552,9 +531,6 @@ export class AnalyticsCardComponent {
   selectNode(node: WorkflowNode) {
     this.selectedNode.set(node);
     
-    // const popoverX = node.type == 'endpoint' ? node.x - 400 : node.x + 100;
-    // const popoverY = node.type == 'endpoint' ? node.y - 100 : node.y - 70;
-
     const containerWidth = document.querySelector('.relative.bg-gray-50')?.clientWidth || 1000;
     const containerHeight = document.querySelector('.relative.bg-gray-50')?.clientHeight || 300;
     
@@ -571,11 +547,11 @@ export class AnalyticsCardComponent {
   closePopover() {
     this.selectedNode.set(null);
   }
+
+  @HostListener('window:resize')
+    onResize() {
+    if (this.selectedNode()) {
+      this.selectNode(this.selectedNode()!);
+    }
+  }
 }
-// @HostListener('window:resize')
-//   onResize() {
-//   // Recalculate popover position if node is selected
-//   if (this.selectedNode()) {
-//     this.selectNode(this.selectedNode()!);
-//   }
-// }

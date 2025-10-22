@@ -13,7 +13,7 @@ interface AccordionItem {
   standalone: true,
   imports: [CommonModule],
   template: `
-    <div class="h-[calc(100vh-6rem)] overflow-y-auto scrollbar-hide
+    <div class="h-[calc(100vh-7rem)] overflow-y-auto
         bg-white rounded-lg shadow-sm border border-gray-200 h-full flex flex-col">
       <div class="p-6 overflow-y-auto flex-1 custom-scrollbar">
         <!-- Description Section -->
